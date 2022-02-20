@@ -106,22 +106,3 @@ ON ri. emp_no = de.emp_no
 WHERE de.to_date = ('9999-01-01');
 SELECT * FROM current_emp;
 
-
-
-
-
-
-
-
-
-
--- Use Dictinct with Orderby to remove duplicate rows
-SELECT DISTINCT ON (______) _____,
-______,
-______,
-______
-
-INTO nameyourtable
-FROM _______
-WHERE _______
-ORDER BY _____, _____ DESC;
