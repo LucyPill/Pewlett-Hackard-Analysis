@@ -1,11 +1,12 @@
 -- Creating tables fo PH-EmployeeDB
 CREATE TABLE departments(
-	dept_no VARCHAR(10) NOT NULL,
-	dept_name VARCHAR(40) NOT NULL,
+	dept_no VARCHAR NOT NULL,
+	dept_name VARCHAR NOT NULL,
 	PRIMARY KEY (dept_no),
 	UNIQUE (dept_name)
 );
-SELECT * FROM employees;
+
+
 CREATE TABLE employees(
 	emp_no INT NOT NULL,
 	birth_date DATE NOT NULL,
@@ -15,9 +16,10 @@ CREATE TABLE employees(
 	hire_date DATE NOT NULL,
 	PRIMARY KEY (emp_no)
 );
-SELECT * FROM employees;
+
+
 CREATE TABLE dept_manager (
-	dept_no VARCHAR(10) NOT NULL,
+	dept_no VARCHAR NOT NULL,
 	emp_no INT NOT NULL,
 	from_date DATE NOT NULL,
 	to_date DATE NOT NULL,
@@ -34,10 +36,10 @@ CREATE TABLE salaries(
 	FOREIGN KEY (emp_no) REFERENCES employees(emp_no),
 	PRIMARY KEY (emp_no)
 );
-SELECT * FROM salaries;
+
 CREATE TABLE dept_emp(
 	emp_no INT NOT NULL,
-	dept_no VARCHAR (10) NOT NULL,
+	dept_no VARCHAR NOT NULL,
 	from_date DATE NOT NULL,
 	to_date DATE NOT NULL,
 	FOREIGN KEY(emp_no) REFERENCES employees (emp_no),
@@ -47,7 +49,7 @@ CREATE TABLE dept_emp(
 
 CREATE TABLE titles(
 	emp_no INT NOT NULL,
-	title VARCHAR (50) NOT NULL,
+	title VARCHAR NOT NULL,
 	from_date DATE NOT NULL,
 	to_date DATE NOT NULL,
 	FOREIGN KEY (emp_no) REFERENCES employees (emp_no),
@@ -89,7 +91,6 @@ AND (hire_date BETWEEN '1985-01-01' AND '1988-12-31');
 -- Check the table
 SELECT * FROM retirement_info;
 
---Inner Join
 -- Joining departments and dept_manager tables
 SELECT departments.dept_name,
 	dept_manager. emp_no,
@@ -108,7 +109,7 @@ SELECT d.dept_name,
  ON d.dept_no = dm. dept_no;
 
 --Joining retirement info and dept_emp tables
---Left Join
+
 SELECT retirement_info.emp_no,
 	retirement_info.first_name,
 	retirement_info. last_name,
@@ -116,8 +117,7 @@ dept_emp.to_date
 FROM retirement_info
 LEFT JOIN dept_emp
 ON retirement_info. emp_no = dept_emp. emp_no;
-
---Use Aliases for Code Readability
+ 
 -- Joining retirement_info and dept_emp tables
 SELECT retirement_info.emp_no,
     retirement_info.first_name,
@@ -131,7 +131,7 @@ ON retirement_info.emp_no = dept_emp.emp_no;
 SELECT ri.emp_no,
     ri.first_name,
     ri.last_name,
-de.to_date
+    de.to_date
 INTO current_emp
 	
 --Define the aliases
@@ -158,8 +158,8 @@ ORDER BY to_date DESC;
 --CREATE new table for emp_info 
 SELECT emp_no,
 	first_name,
-last_name,
-gender
+    last_name,
+    gender
 FROM employees
 WHERE (birth_date BETWEEN '1952-01-01' AND '1955-12-31')
 AND (hire_date BETWEEN '1985-01-01' AND '1988-12-31');
@@ -190,7 +190,7 @@ SELECT  dm.dept_no,
         ce.first_name,
         dm.from_date,
         dm.to_date
---INTO manager_info
+INTO manager_info
 FROM dept_manager AS dm
     INNER JOIN departments AS d
         ON (dm.dept_no = d.dept_no)
